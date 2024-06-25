@@ -2,6 +2,8 @@ import React from 'react'
 import foodImage from '../icons_assets/restauranfood.jpg'
 import Button from '../components/Button.js'
 import Specials from './Specials.js'
+import CustomersSay from './CustomersSay.js'
+import Chicago from './Chicago.js'
 const Main = () => {
   return (
     <main>
@@ -19,6 +21,8 @@ const Main = () => {
         </div>
       </div>
       <Specials/>
+      <CustomersSay/>
+      <Chicago/>
     </main>
   )
 }

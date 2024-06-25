@@ -24,7 +24,13 @@ main {
 }
 h1 {
   color: #f4ce14;
-  font-size: 2rem;
+  font-size: 4rem;
+}
+h2 {
+  font-size: 3rem;
+}
+p {
+  font-size: 1.2rem;
 }
 button {
   padding: 0.5rem;
@@ -54,6 +60,12 @@ button {
 .header-text {
   flex: 1;
 }
+.header-text h1 {
+  margin-bottom: 1px;
+}
+.header-text h2 {
+  margin-top: 1px;
+}
 .header-text p,
 .header-text h2 {
   color: #ffffff;
@@ -68,7 +80,7 @@ button {
 }
 .header-container img {
   position: absolute;
-  top: 5%;
+  top: 20%;
   left: 60%;
   width: 18rem;
   height: 20rem;
@@ -137,4 +149,98 @@ button {
 }
 .card-content p {
   text-align: left;
+}
+.testimonials-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  width: 500px;
+  height: 600px;
+  background-color: #edefee;
+  border-radius: 20px;
+  padding-top: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.testimonails-img {
+  width: 100px;
+  height: auto;
+  background-image: url("./icons_assets/Profile_avatar_placeholder_large.png");
+  border-radius: 50px;
+}
+.star-container {
+  display: flex;
+  gap: 5px;
+}
+.star-container img {
+  width: 25px;
+}
+.customer-say-title {
+  color: #333333;
+  text-align: center;
+}
+.customer-say-testimonials {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.chicago-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3rem;
+}
+.chicago-text {
+  flex: 1;
+}
+.chicago-text h1 {
+  margin-bottom: 1px;
+}
+.chicago-text h2 {
+  margin-top: 1px;
+}
+.chicago-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+}
+.chicago-container img {
+  position: absolute;
+  top: -15%;
+  left: 75%;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 20px;
+}
+#overlap-img {
+  top: 45%;
+  left: 60%;
+  z-index: 1;
+}
+footer {
+  margin-top: 15rem;
+  display: flex;
+  justify-content: center;
+  gap: 15rem;
+  text-align: center;
+  border-top: 2px solid #000000;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+footer ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
 }
