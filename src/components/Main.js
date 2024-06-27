@@ -19,7 +19,7 @@ const Main = () => {
 
   const [availableTimes, availableTimesDispatch] = useReducer(updateTimes,undefined,initializeTimes);
   const navigate = useNavigate();
-  const submitForm = (formData) => {
+  function submitForm(formData){
     if(submitAPI(formData)){
       navigate("/confirm-booking");
     }

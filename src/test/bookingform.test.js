@@ -2,26 +2,27 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import Main, { updateTimes } from "../components/Main";
 import BookingForm from '../components/BookingForm';
 import { initializeTimes } from "../components/Main";
+import { fetchAPI } from "../api";
 test('Renders the BookingForm heading', () => {
-    render(<BookingForm availableTimes={["5:00"]} availableTimesDispatch={()=>{}}/>);
+    render(<BookingForm availableTimes={["5:00"]} availableTimesDispatch={()=>{}} submitForm={()=>{}}/>);
     const headingElement = screen.getByText("Booking Form");
     expect(headingElement).toBeInTheDocument();
 })
 
 test('Validate initializeTimes that it returns the correct value', () => {
-    const expectedTimes = ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
+    const expectedTimes = fetchAPI(new Date());
     const result = initializeTimes();
     expect(result).toEqual(expectedTimes);
 })
 
 test('Validate updateTimes that it returns the correct value', () => {
     const selectedDate = "2024-06-13"
-    const expectedTimes = ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
-    const result = updateTimes(selectedDate);
+    const expectedTimes = fetchAPI(new Date(selectedDate));
+    const result = updateTimes([],selectedDate);
     expect(result).toEqual(expectedTimes);
 })
 test("Form can be submitted by user", () => {
-    render(<BookingForm availableTimes={["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"]} availableTimesDispatch={()=>{}}/>);
+    render(<BookingForm availableTimes={["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"]} availableTimesDispatch={()=>{}} submitForm={()=>{}}/>);
 
     //Check rendering 
     expect(screen.getByLabelText(/Choose date/i)).toBeInTheDocument();
