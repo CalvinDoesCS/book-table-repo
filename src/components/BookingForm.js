@@ -1,47 +1,40 @@
 import React, { useState } from 'react'
-
+import { useFormik } from 'formik';
 const BookingForm = ({availableTimes, availableTimesDispatch,submitForm}) => {
-    const [formData, setFormData] = useState({
-        "res-date": new Date().getDate(),
-        "res-time": '',
-        guests: 1,
-        occasion: 'Birthday'
-    });
 
-    const handleChange = (e) => {
-        const { id, value } = e.target;
-        if(id === "res-date"){
-            availableTimesDispatch(value);
-        }
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          [id]: value
-        }));
-    }; 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Logic to handle form submission
-        console.log(formData);
-        submitForm(formData);
-      };
+    const formik = useFormik({
+        initialValues: {
+            date: new Date().toISOString().split('T')[0],
+            time: '',
+            guests: 1,
+            occasion: 'Birthday'
+        },
+        onSubmit: values => {
+          submitForm(values);
+        },
+      });
   return (
     <>
         <h1> Booking Form </h1>
-        <form className='form-container' onSubmit={handleSubmit}>
-            <label htmlFor="res-date">Choose date</label>
-            <input type="date" id="res-date" onChange={handleChange}/>
-            <label htmlFor="res-time">Choose time</label>
-            <select id="res-time" onChange={handleChange}>
+        <form className='form-container' onSubmit={formik.handleSubmit}>
+            <label htmlFor="date">Choose date</label>
+            <input type="date" id="date" onChange={(e)=>{
+                availableTimesDispatch(formik.values.date);
+                formik.setValues({...formik.values, ["date"]: e.target.value});
+            }
+            } value={formik.values.date}/>
+            <label htmlFor="time">Choose time</label>
+            <select id="time" onChange={formik.handleChange}>
                 {
-                   availableTimes.map(time => <option key={time}>{time}</option>)
+                   availableTimes.map(time => <option key={time} value={time}>{time}</option>)
                 }
             </select>
             <label htmlFor="guests">Number of guests</label>
-            <input type="number" placeholder="1" min="1" max="10" id="guests" onChange={handleChange}/>
+            <input type="number" id="guests" onChange={formik.handleChange} value={formik.values.guests}/>
             <label htmlFor="occasion">Occasion</label>
-            <select id="occasion" onChange={handleChange}>
-                <option>Birthday</option>
-                <option>Anniversary</option>
+            <select id="occasion" onChange={formik.handleChange} value={formik.values.occasion}>
+                <option value="Birthday">Birthday</option>
+                <option value="Anniversary">Anniversary</option>
             </select>
             <input type="submit" value="Make Your reservation"/>
         </form>
