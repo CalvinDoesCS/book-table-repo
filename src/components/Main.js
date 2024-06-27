@@ -1,27 +1,39 @@
-import React,{useReducer, useState} from 'react'
-import {Route, Routes} from "react-router-dom"
+import React,{ useReducer} from 'react'
+import {Route, Routes, useNavigate} from "react-router-dom"
 import Homepage from '../pages/Homepage.js'
 import BookingPage from '../pages/BookingPage.js'
 import Layout from '../pages/Layout.js'
+import { fetchAPI, submitAPI } from '../api.js'
+import BookingForm from './BookingForm.js'
+import ConfirmedBooking from './ConfirmedBooking.js'
 
-export function updateTimes(selectedDate){
-  return ["17:00","18:00","19:00","20:00","21:00","22:00"];
+export function updateTimes(state, dispatch){
+  return fetchAPI(new Date(dispatch));
 }
 export function initializeTimes(){
-  return ["17:00","18:00","19:00","20:00","21:00","22:00"];
+  const today = new Date();
+  return fetchAPI(today);
 }
 
 const Main = () => {
 
   const [availableTimes, availableTimesDispatch] = useReducer(updateTimes,undefined,initializeTimes);
+  const navigate = useNavigate();
+  const submitForm = (formData) => {
+    if(submitAPI(formData)){
+      navigate("/confirm-booking");
+    }
+  }
 
-  
   return (
     <main>
-      <Routes> 
-        <Route path="/" element={<Layout><Homepage /></Layout>}></Route>
-        <Route path="/booking" element={<Layout><BookingPage availableTimes={availableTimes} availableTimesDispatch={availableTimesDispatch}/></Layout>}></Route>
-      </Routes>
+      <Layout>
+        <Routes> 
+          <Route path="/" element={<Homepage />}></Route>
+          <Route path="/booking" element={<BookingPage availableTimes={availableTimes} availableTimesDispatch={availableTimesDispatch} submitForm={submitForm}/>}></Route>
+          <Route path="/confirm-booking" element={<ConfirmedBooking/>}></Route>
+        </Routes>
+      </Layout>
     </main>
   )
 }

@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 
-const BookingForm = ({availableTimes, availableTimesDispatch}) => {
+const BookingForm = ({availableTimes, availableTimesDispatch,submitForm}) => {
     const [formData, setFormData] = useState({
-        "res-date": '',
-        "res-time": '17:00',
+        "res-date": new Date().getDate(),
+        "res-time": '',
         guests: 1,
         occasion: 'Birthday'
     });
 
     const handleChange = (e) => {
         const { id, value } = e.target;
+        if(id === "res-date"){
+            availableTimesDispatch(value);
+        }
         setFormData((prevFormData) => ({
           ...prevFormData,
           [id]: value
@@ -19,6 +22,7 @@ const BookingForm = ({availableTimes, availableTimesDispatch}) => {
         e.preventDefault();
         // Logic to handle form submission
         console.log(formData);
+        submitForm(formData);
       };
   return (
     <>
@@ -28,7 +32,9 @@ const BookingForm = ({availableTimes, availableTimesDispatch}) => {
             <input type="date" id="res-date" onChange={handleChange}/>
             <label htmlFor="res-time">Choose time</label>
             <select id="res-time" onChange={handleChange}>
-                {availableTimes.map(time => <option key={time}>{time}</option>)}
+                {
+                   availableTimes.map(time => <option key={time}>{time}</option>)
+                }
             </select>
             <label htmlFor="guests">Number of guests</label>
             <input type="number" placeholder="1" min="1" max="10" id="guests" onChange={handleChange}/>
