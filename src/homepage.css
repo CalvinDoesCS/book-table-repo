@@ -39,9 +39,12 @@ button {
   width: 10rem;
   max-height: 3rem;
   color: #000000;
-  border-radius: 20px;
+  border-radius: 5rem;
   font-weight: bold;
   align-self: center;
+}
+a {
+  text-decoration: none;
 }
 .header-background {
   background-color: #495e57;
