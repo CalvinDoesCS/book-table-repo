@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent,act } from "@testing-library/react";
 import Main, { updateTimes } from "../components/Main";
 import BookingForm from '../components/BookingForm';
 import { initializeTimes } from "../components/Main";
